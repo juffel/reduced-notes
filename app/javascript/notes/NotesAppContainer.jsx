@@ -11,9 +11,10 @@ class NotesAppContainer extends React.Component {
   }
 
   render() {
+    const store = createStore(notesAppReducer);
     return (
-      <Provider store={createStore(notesAppReducer)} >
-        <NotesApp />
+      <Provider store={store} >
+        <NotesApp store={store} />
       </Provider>
     );
   }
