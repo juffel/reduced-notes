@@ -2,8 +2,8 @@ import 'babel-polyfill';
 import 'raf/polyfill';
 import ReactOnRails from 'react-on-rails';
 
-import NotesAppContainer from '../NotesAppContainer';
-import NotesApp from '../NotesApp';
+import NotesAppContainer from '../notes/NotesAppContainer';
+import NotesApp from '../notes/NotesApp';
 
 ReactOnRails.register({
   NotesAppContainer,
