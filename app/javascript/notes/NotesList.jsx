@@ -4,11 +4,19 @@ import PropTypes from 'prop-types';
 import Note from './Note';
 
 export default class NotesList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render () {
     const notes = this.props.notes.map((note, index) => {
       return (
         <li key={note.id}>
-          <Note body={note.text} onDelete={() => this.props.onNoteDelete(note.id)}/>
+          <Note
+            body={note.body}
+            onUpdate={(body) => this.props.onNoteUpdate(note.id, body)}
+            onDelete={() => this.props.onNoteDelete(note.id)}
+          />
         </li>
       );
     });
@@ -21,7 +29,8 @@ export default class NotesList extends React.Component {
   }
 }
 
-Note.propTypes = {
+NotesList.propTypes = {
   notes: PropTypes.array,
-  onNoteDelete: PropTypes.func
+  onNoteUpdate: PropTypes.func.isRequired,
+  onNoteDelete: PropTypes.func.isRequired
 };

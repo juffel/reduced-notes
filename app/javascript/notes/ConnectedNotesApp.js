@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import NotesApp from './NotesApp';
-import { addNote, deleteNote } from './actions';
+import { addNote, updateNote, deleteNote } from './actions';
 
 const mapStateToProps = state => {
   return { notes: state.notes };
@@ -9,8 +9,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onNoteAdd: text => {
-      dispatch(addNote(text));
+    onNoteAdd: (body = '') => {
+      dispatch(addNote(body));
+    },
+    onNoteUpdate: (id, body) => {
+      dispatch(updateNote(id, body));
     },
     onNoteDelete: id => {
       dispatch(deleteNote(id));

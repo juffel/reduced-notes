@@ -10,13 +10,7 @@ export default class NotesApp extends React.Component {
   constructor(props) {
     super(props);
 
-    this.addNote = this.addNote.bind(this);
     this.onStateUpdate = this.onStateUpdate.bind(this);
-  }
-
-  addNote() {
-    const body = this.input.value;
-    this.props.onNoteAdd(body);
   }
 
   onStateUpdate() {
@@ -27,9 +21,12 @@ export default class NotesApp extends React.Component {
   render() {
     return (
       <div>
-        <input ref={element => { this.input = element; }} type="text" />
-        <button onClick={this.addNote}>Add Note</button>
-        <NotesList notes={this.props.notes} onNoteDelete={this.props.onNoteDelete} />
+        <button onClick={() => this.props.onNoteAdd()}>Add Note</button>
+        <NotesList
+          notes={this.props.notes}
+          onNoteUpdate={this.props.onNoteUpdate}
+          onNoteDelete={this.props.onNoteDelete}
+        />
       </div>
     );
   }
@@ -38,5 +35,6 @@ export default class NotesApp extends React.Component {
 NotesApp.propTypes = {
   notes: PropTypes.array.isRequired,
   onNoteAdd: PropTypes.func.isRequired,
+  onNoteUpdate: PropTypes.func.isRequired,
   onNoteDelete: PropTypes.func.isRequired
 };
