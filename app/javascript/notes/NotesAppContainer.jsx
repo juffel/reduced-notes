@@ -3,7 +3,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import notesAppReducer from './reducers'
-import NotesApp from './NotesApp';
+import VisibleNotesApp from './VisibleNotesApp';
 
 class NotesAppContainer extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class NotesAppContainer extends React.Component {
     const store = createStore(notesAppReducer);
     return (
       <Provider store={store} >
-        <NotesApp store={store} />
+        <VisibleNotesApp />
       </Provider>
     );
   }

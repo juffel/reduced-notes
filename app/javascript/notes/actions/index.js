@@ -8,9 +8,9 @@ export const addNote = text => {
   };
 };
 
-export const deleteNote = index => {
+export const deleteNote = id => {
   return {
     type: 'DELETE_NOTE',
-    index
+    id
   };
 };

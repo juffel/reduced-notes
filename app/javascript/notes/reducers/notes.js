@@ -9,7 +9,7 @@ const notes = (state = [], action) => {
         }
       ];
     case 'DELETE_NOTE':
-      return delete state[action.index];
+      return state.filter((note) => note.id !== action.id);
     default:
       return state;
   }
