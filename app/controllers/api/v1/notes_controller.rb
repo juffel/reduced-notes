@@ -1,29 +1,29 @@
-module API
+module Api
   module V1
-    class NotesController
-      before_action :set_note, only: %i[create delete]
-      respond_to :json
+    class NotesController < ActionController::Base
+      before_action :set_note, only: %i[update destroy]
 
       def index
-        respond_with(Task.all)
+        render json: Note.all
       end
 
       def create
-        @task = Task.create(params)
+        @note = Note.create(params.permit(:title, :body))
       end
 
       def update
-        @task.update_attributes(params.permit(:title, :body))
+        @note.update_attributes(params.permit(:id, :title, :body))
       end
 
-      def delete
-        @task.delete
+      def destroy
+        @note.delete
       end
 
       private
 
       def set_note
-        @task = Task.find(params[:id])
+        params.require(:id)
+        @note = Note.find(params[:id])
       end
     end
   end
