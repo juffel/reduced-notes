@@ -25,7 +25,6 @@ export default class Note extends React.Component {
     if (this.state.editing) {
       return (
         <div>
-          <Toggle label="Toggled by default" defaultToggled={true} />
           <input ref={(e) => this.input = e} defaultValue={this.props.body} />
           <button onClick={this.onSave}>Save</button>
         </div>
@@ -33,7 +32,6 @@ export default class Note extends React.Component {
     } else {
       return (
         <div>
-          <Toggle label="Toggled by default" defaultToggled={true} />
           <span>{this.props.body}</span>
           <button onClick={this.onEdit}>Edit</button>
           <button onClick={this.props.onDelete}>Delete</button>

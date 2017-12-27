@@ -38,3 +38,7 @@ NotesApp.propTypes = {
   onNoteUpdate: PropTypes.func.isRequired,
   onNoteDelete: PropTypes.func.isRequired
 };
+
+NotesApp.contextTypes = {
+  store: PropTypes.object
+};
