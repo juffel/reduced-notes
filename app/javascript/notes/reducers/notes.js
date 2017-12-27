@@ -1,8 +1,12 @@
+import clientUpdate from '../clientUpdate';
+
 const updateNote = (state, action) => {
   return Object.assign({}, state, { body: action.body });
 };
 
 const notes = (state = [], action) => {
+  clientUpdate(action);
+
   switch (action.type) {
     case 'ADD_NOTE':
       return [

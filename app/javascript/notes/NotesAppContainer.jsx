@@ -10,12 +10,13 @@ import ConnectedNotesApp from './ConnectedNotesApp';
 class NotesAppContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.store = createStore(notesAppReducer);
   }
 
   render() {
-    const store = createStore(notesAppReducer);
     return (
-      <Provider store={store} >
+      <Provider store={this.store} >
         <MuiThemeProvider>
           <ConnectedNotesApp />
         </MuiThemeProvider>
