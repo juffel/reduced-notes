@@ -1,9 +1,10 @@
 import client from './client';
 
-const addNoteAction = () => {
+const addNoteAction = (body) => {
   return {
     type: 'ADD_NOTE',
     id: Math.floor((Math.random() * 100000)),
+    body
   };
 };
 
@@ -64,12 +65,12 @@ export function fetchNotesThunk() {
   };
 }
 
-export function addNoteThunk() {
+export function addNoteThunk(body) {
   return function(dispatch) {
-    const note = addNoteAction();
+    const note = addNoteAction(body);
     dispatch(note);
 
-    return client.postNote().then((response) => {
+    return client.postNote({ body }).then((response) => {
       dispatch(receiveAddedNoteAction(note, response.jsonData));
     });
   };

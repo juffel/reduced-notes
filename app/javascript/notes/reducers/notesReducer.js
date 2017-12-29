@@ -10,7 +10,7 @@ function reduceNote(
 ) {
   switch (action.type) {
     case 'ADD_NOTE':
-      return Object.assign({}, state, { id: action.id, adding: true } );
+      return Object.assign({}, state, { id: action.id, adding: true, body: action.body } );
     case 'RECEIVE_ADDED_NOTE':
       return Object.assign({}, state, { id: action.backendId,
                                         adding: false });
@@ -34,8 +34,8 @@ const notesReducer = (state = { notes: [] }, action) => {
       return Object.assign({}, state, { notes: action.notes });
     case 'ADD_NOTE':
       const notesAdd = [
-        ...state.notes,
-        reduceNote(undefined, action)
+        reduceNote(undefined, action),
+        ...state.notes
       ];
       return Object.assign({}, state, { notes: notesAdd });
     case 'RECEIVE_ADDED_NOTE':

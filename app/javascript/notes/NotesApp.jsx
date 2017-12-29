@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
+
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import NotesList from './NotesList';
 
@@ -20,7 +22,13 @@ export default class NotesApp extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.props.onNoteAdd()}>Add Note</button>
+        <FloatingActionButton
+          label="Add Note"
+          onClick={() => this.props.onNoteAdd()}
+          style={styles.button}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
         <NotesList
           notes={this.props.notes}
           onNoteUpdate={this.props.onNoteUpdate}

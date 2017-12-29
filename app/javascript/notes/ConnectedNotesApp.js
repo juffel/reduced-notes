@@ -13,7 +13,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onNoteAdd: (body = '') => {
+    onNoteAdd: (body = 'New Note') => {
       dispatch(addNoteThunk(body));
     },
     onNoteUpdate: (note) => {

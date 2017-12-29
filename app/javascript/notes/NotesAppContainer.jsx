@@ -18,8 +18,7 @@ class NotesAppContainer extends React.Component {
       applyMiddleware(thunkMiddleware)
     );
     this.store = store;
-    store.dispatch(fetchNotesThunk())
-         .then(() => console.log(store.getState()));
+    store.dispatch(fetchNotesThunk());
   }
 
   render() {

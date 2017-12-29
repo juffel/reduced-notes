@@ -4,7 +4,7 @@ module Api
       before_action :set_note, only: %i[update destroy]
 
       def index
-        render json: Note.all
+        render json: Note.all.order(created_at: :desc)
       end
 
       def create
