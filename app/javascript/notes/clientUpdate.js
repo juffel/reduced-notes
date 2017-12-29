@@ -35,20 +35,20 @@ const clientUpdate = (action) => {
       });
       break;
     case 'ADD_NOTE':
-      const params = { foo: 'bar' };
-      post(params).then((response) => {
+      const addParams = { foo: 'bar' };
+      post(addParams).then((response) => {
         // TODO: save persistedNote.id in
       });
       break;
     case 'UPDATE_NOTE':
-      const params = { foo: 'bar' };
-      post(params).then((response) => {
+      const updateParams = { foo: 'bar' };
+      post(updateParams).then((response) => {
         // TODO: do nothing (rely on optimistic update)
       });
       break;
     case 'DELETE_NOTE':
-      const params = { foo: 'bar' };
-      delete(params).then((response) => {
+      const deleteParams = { foo: 'bar' };
+      delete(deleteParams).then((response) => {
         // TODO: do nothing (rely on optimistic update)
       });
       break;

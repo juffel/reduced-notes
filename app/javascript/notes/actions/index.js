@@ -18,3 +18,38 @@ export const deleteNote = id => {
     id
   };
 };
+
+export const requestNotes = () => {
+  return {
+    type: 'REQUEST_NOTES'
+  };
+};
+
+export const receiveNotes = (json) => {
+  return {
+    type: 'RECEIVE_NOTES'
+  };
+};
+
+export const receiveAddedNote = (note, json) => {
+  return {
+    type: 'RECEIVE_ADDED_NOTE',
+    note,
+    addedNote: json.data
+  };
+};
+
+export const receiveUpdatedNote = (note, json) => {
+  return {
+    type: 'RECEIVE_UPDATED_NOTE',
+    note,
+    updatedNote: json.data
+  };
+};
+
+export const receiveDeletedNote = (note) => {
+  return {
+    type: 'RECEIVE_DELETED_NOTE',
+    note
+  };
+};

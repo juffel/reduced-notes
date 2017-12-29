@@ -4,7 +4,7 @@ import NotesApp from './NotesApp';
 import { addNote, updateNote, deleteNote } from './actions';
 
 const mapStateToProps = state => {
-  return { notes: state.notes };
+  return { notes: state.notesReducer.notes };
 };
 
 const mapDispatchToProps = dispatch => {
