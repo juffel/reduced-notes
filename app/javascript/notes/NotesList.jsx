@@ -9,13 +9,13 @@ export default class NotesList extends React.Component {
   }
 
   render () {
-    const notes = this.props.notes.map((note, index) => {
+    const notes = this.props.notes.map((note) => {
       return (
         <li key={note.id}>
           <Note
             body={note.body}
-            onUpdate={(body) => this.props.onNoteUpdate(note.id, body)}
-            onDelete={() => this.props.onNoteDelete(note.id)}
+            onUpdate={(newBody) => this.props.onNoteUpdate(Object.assign({}, note, { body: newBody }))}
+            onDelete={() => this.props.onNoteDelete(note)}
           />
         </li>
       );

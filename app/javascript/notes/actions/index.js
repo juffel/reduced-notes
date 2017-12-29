@@ -14,17 +14,32 @@ const commonStack = createStack(
   parse('json', 'jsonData')
 );
 
-const get = createFetch(
+const getNotes = createFetch(
   commonStack,
   method('GET')
 );
 
-function post(postParams) {
+function postNote(parameters) {
   return createFetch(
     commonStack,
     method('POST'),
-    params(postParams)
+    params(parameters)
   )();
+};
+
+function patchNote(id, parameters) {
+  return createFetch(
+    commonStack,
+    method('PATCH'),
+    params(parameters)
+  )('/' + id);
+};
+
+function deleteNote(id) {
+  return createFetch(
+    commonStack,
+    method('DELETE'),
+  )('/' + id);
 };
 
 let incrementalId = 0;
@@ -36,14 +51,14 @@ const addNoteAction = () => {
   };
 };
 
-const updateNoteAction = (id, body) => {
-  return { type: 'UPDATE_NOTE', id, body };
+const updateNoteAction = (note) => {
+  return { type: 'UPDATE_NOTE', note };
 };
 
-const deleteNoteAction = id => {
+const deleteNoteAction = (note) => {
   return {
     type: 'DELETE_NOTE',
-    id
+    note
   };
 };
 
@@ -87,7 +102,7 @@ export function fetchNotesThunk() {
   return function(dispatch) {
     dispatch(requestNotesAction());
 
-    return get().then((response) => {
+    return getNotes().then((response) => {
       dispatch(receiveNotesAction(response.jsonData));
     });
   };
@@ -98,8 +113,28 @@ export function addNoteThunk() {
     const note = addNoteAction();
     dispatch(note);
 
-    return post().then((response) => {
+    return postNote().then((response) => {
       dispatch(receiveAddedNoteAction(note, response.jsonData));
+    });
+  };
+}
+
+export function updateNoteThunk(note) {
+  return function(dispatch) {
+    dispatch(updateNoteAction(note));
+
+    return patchNote(note.id, { body: note.body }).then((response) => {
+      dispatch(receiveUpdatedNoteAction(note, response.jsonData));
+    });
+  };
+}
+
+export function deleteNoteThunk(note) {
+  return function(dispatch) {
+    dispatch(deleteNoteAction(note));
+
+    return deleteNote(note.id).then(() => {
+      dispatch(receiveDeletedNoteAction(note));
     });
   };
 }

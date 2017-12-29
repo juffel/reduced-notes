@@ -16,11 +16,11 @@ const mapDispatchToProps = dispatch => {
     onNoteAdd: (body = '') => {
       dispatch(addNoteThunk(body));
     },
-    onNoteUpdate: (id, body) => {
-      dispatch(updateNote(id, body));
+    onNoteUpdate: (note) => {
+      dispatch(updateNoteThunk(note));
     },
-    onNoteDelete: id => {
-      dispatch(deleteNote(id));
+    onNoteDelete: (note) => {
+      dispatch(deleteNoteThunk(note));
     }
   };
 };

@@ -9,14 +9,17 @@ module Api
 
       def create
         @note = Note.create(params.permit(:title, :body))
+        render json: {}
       end
 
       def update
         @note.update_attributes(params.permit(:id, :title, :body))
+        render json: {}
       end
 
       def destroy
         @note.delete
+        render json: {}
       end
 
       private
