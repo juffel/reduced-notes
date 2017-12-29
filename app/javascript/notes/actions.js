@@ -1,11 +1,9 @@
-import client from '../client';
-
-let incrementalId = 0;
+import client from './client';
 
 const addNoteAction = () => {
   return {
     type: 'ADD_NOTE',
-    id: incrementalId++,
+    id: Math.floor((Math.random() * 100000)),
   };
 };
 
@@ -36,7 +34,7 @@ const receiveNotesAction = (notes) => {
 const receiveAddedNoteAction = (note, json) => {
   return {
     type: 'RECEIVE_ADDED_NOTE',
-    noteId: note.id,
+    note,
     backendId: json.id
   };
 };
