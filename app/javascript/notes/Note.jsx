@@ -42,7 +42,11 @@ export default class Note extends React.Component {
 }
 
 Note.propTypes = {
-  body: PropTypes.string.isRequired,
+  body: PropTypes.string,
   onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired
+};
+
+Note.defaultProps = {
+  body: ''
 };

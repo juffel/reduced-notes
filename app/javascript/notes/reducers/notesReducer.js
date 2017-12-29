@@ -1,5 +1,3 @@
-import clientUpdate from '../clientUpdate';
-
 function reduceNote(
   state = {
     adding: false,
@@ -14,7 +12,8 @@ function reduceNote(
     case 'ADD_NOTE':
       return Object.assign({}, state, { adding: true } );
     case 'RECEIVE_ADDED_NOTE':
-      return Object.assign({}, state, { adding: false } );
+      return Object.assign({}, state, { id: action.backendId,
+                                        adding: false });
     case 'UPDATE_NOTE':
       return Object.assign({}, state, { updating: true } );
     case 'RECEIVE_UPDATED_NOTE':
@@ -29,9 +28,9 @@ function reduceNote(
 };
 
 const notesReducer = (state = { notes: [] }, action) => {
-  clientUpdate(action);
-
   switch (action.type) {
+    case 'RECEIVE_NOTES':
+      return Object.assign({}, state, { notes: action.notes });
     case 'ADD_NOTE':
       const notesAdd = [
         ...state.notes,

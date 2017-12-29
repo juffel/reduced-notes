@@ -1,17 +1,25 @@
 import React from 'react';
-import { createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import notesAppReducer from './reducers'
 import ConnectedNotesApp from './ConnectedNotesApp';
+import { fetchNotesThunk } from './actions';
 
 class NotesAppContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.store = createStore(notesAppReducer);
+    const store = createStore(
+      notesAppReducer,
+      applyMiddleware(thunkMiddleware)
+    );
+    this.store = store;
+    store.dispatch(fetchNotesThunk())
+         .then(() => console.log(store.getState()));
   }
 
   render() {

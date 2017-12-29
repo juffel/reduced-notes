@@ -1,45 +1,74 @@
+import {
+  createFetch,
+  createStack,
+  base,
+  params,
+  parse,
+  method,
+} from 'http-client';
+
+const BASE_URL = '/api/v1/notes';
+
+const commonStack = createStack(
+  base(BASE_URL),
+  parse('json', 'jsonData')
+);
+
+const get = createFetch(
+  commonStack,
+  method('GET')
+);
+
+function post(postParams) {
+  return createFetch(
+    commonStack,
+    method('POST'),
+    params(postParams)
+  )();
+};
+
 let incrementalId = 0;
 
-export const addNote = body => {
+const addNoteAction = () => {
   return {
     type: 'ADD_NOTE',
     id: incrementalId++,
-    body
   };
 };
 
-export const updateNote = (id, body) => {
+const updateNoteAction = (id, body) => {
   return { type: 'UPDATE_NOTE', id, body };
 };
 
-export const deleteNote = id => {
+const deleteNoteAction = id => {
   return {
     type: 'DELETE_NOTE',
     id
   };
 };
 
-export const requestNotes = () => {
+export const requestNotesAction = () => {
   return {
     type: 'REQUEST_NOTES'
   };
 };
 
-export const receiveNotes = (json) => {
+const receiveNotesAction = (notes) => {
   return {
-    type: 'RECEIVE_NOTES'
+    type: 'RECEIVE_NOTES',
+    notes
   };
 };
 
-export const receiveAddedNote = (note, json) => {
+const receiveAddedNoteAction = (note, json) => {
   return {
     type: 'RECEIVE_ADDED_NOTE',
-    note,
-    addedNote: json.data
+    noteId: note.id,
+    backendId: json.id
   };
 };
 
-export const receiveUpdatedNote = (note, json) => {
+const receiveUpdatedNoteAction = (note, json) => {
   return {
     type: 'RECEIVE_UPDATED_NOTE',
     note,
@@ -47,9 +76,30 @@ export const receiveUpdatedNote = (note, json) => {
   };
 };
 
-export const receiveDeletedNote = (note) => {
+const receiveDeletedNoteAction = (note) => {
   return {
     type: 'RECEIVE_DELETED_NOTE',
     note
   };
 };
+
+export function fetchNotesThunk() {
+  return function(dispatch) {
+    dispatch(requestNotesAction());
+
+    return get().then((response) => {
+      dispatch(receiveNotesAction(response.jsonData));
+    });
+  };
+}
+
+export function addNoteThunk() {
+  return function(dispatch) {
+    const note = addNoteAction();
+    dispatch(note);
+
+    return post().then((response) => {
+      dispatch(receiveAddedNoteAction(note, response.jsonData));
+    });
+  };
+}

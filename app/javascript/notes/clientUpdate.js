@@ -1,33 +1,5 @@
-import {
-  createFetch,
-  createStack,
-  base,
-  params,
-  parse,
-  method,
-} from 'http-client';
 
-const BASE_URL = '/api/v1/notes';
-
-const commonStack = createStack(
-  base(BASE_URL),
-  parse('json', 'jsonData')
-);
-
-const get = createFetch(
-  commonStack,
-  method('GET')
-);
-
-const post = (body) => {
-  return createFetch(
-    commonStack,
-    method('POST'),
-    params(body)
-  )();
-};
-
-const clientUpdate = (action) => {
+export function clientUpdate(action) {
   switch(action.type) {
     case 'FETCH_NOTES':
       get().then((response) => {
@@ -54,5 +26,3 @@ const clientUpdate = (action) => {
       break;
   }
 };
-
-export default clientUpdate;
