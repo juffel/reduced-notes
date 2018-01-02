@@ -4,7 +4,7 @@ import {
   base,
   params,
   parse,
-  method,
+  method
 } from 'http-client';
 
 const BASE_URL = '/api/v1/notes';
@@ -25,21 +25,23 @@ function postNote(parameters) {
     method('POST'),
     params(parameters)
   )();
-};
+}
 
 function patchNote(id, parameters) {
   return createFetch(
     commonStack,
     method('PATCH'),
     params(parameters)
-  )('/' + id);
-};
+  )(`/${id}`);
+}
 
 function deleteNote(id) {
   return createFetch(
     commonStack,
     method('DELETE'),
-  )('/' + id);
-};
+  )(`/${id}`);
+}
 
-export default { getNotes, postNote, patchNote, deleteNote };
+export default {
+  getNotes, postNote, patchNote, deleteNote
+};

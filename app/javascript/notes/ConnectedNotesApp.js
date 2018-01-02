@@ -7,23 +7,19 @@ import {
   deleteNoteThunk
 } from './actions';
 
-const mapStateToProps = state => {
-  return { notes: state.notesReducer.notes };
-};
+const mapStateToProps = state => ({ notes: state.notesReducer.notes });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onNoteAdd: (body = 'New Note') => {
-      dispatch(addNoteThunk(body));
-    },
-    onNoteUpdate: (note) => {
-      dispatch(updateNoteThunk(note));
-    },
-    onNoteDelete: (note) => {
-      dispatch(deleteNoteThunk(note));
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onNoteAdd: (body = 'New Note') => {
+    dispatch(addNoteThunk(body));
+  },
+  onNoteUpdate: (note) => {
+    dispatch(updateNoteThunk(note));
+  },
+  onNoteDelete: (note) => {
+    dispatch(deleteNoteThunk(note));
+  }
+});
 
 const ConnectedNotesApp = connect(
   mapStateToProps,

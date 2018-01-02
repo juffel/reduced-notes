@@ -1,46 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
+import Paper from 'material-ui/Paper';
+import AppBar from 'material-ui/AppBar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import NotesList from './NotesList';
 
-export default class NotesApp extends React.Component {
-  constructor(props) {
-    super(props);
+const buttonStyle = {
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed'
+};
 
-    this.onStateUpdate = this.onStateUpdate.bind(this);
-  }
-
-  onStateUpdate() {
-    const newState = this.props.store.getState();
-    this.setState(newState);
-  }
-
-  render() {
-    return (
-      <div>
-        <FloatingActionButton
-          label="Add Note"
-          onClick={() => this.props.onNoteAdd()}
-          style={styles.button}
-        >
-          <ContentAdd />
-        </FloatingActionButton>
-        <NotesList
-          notes={this.props.notes}
-          onNoteUpdate={this.props.onNoteUpdate}
-          onNoteDelete={this.props.onNoteDelete}
-        />
-      </div>
-    );
-  }
+export default function NotesApp(props) {
+  return (
+    <Paper>
+      <AppBar title="Reduced Notes" />
+      <FloatingActionButton
+        label="Add Note"
+        onClick={() => props.onNoteAdd()}
+        style={buttonStyle}
+      >
+        <ContentAdd />
+      </FloatingActionButton>
+      <NotesList
+        notes={props.notes}
+        onNoteUpdate={props.onNoteUpdate}
+        onNoteDelete={props.onNoteDelete}
+      />
+    </Paper>
+  );
 }
 
 NotesApp.propTypes = {
-  notes: PropTypes.array.isRequired,
+  notes: PropTypes.arrayOf(PropTypes.shape).isRequired,
   onNoteAdd: PropTypes.func.isRequired,
   onNoteUpdate: PropTypes.func.isRequired,
   onNoteDelete: PropTypes.func.isRequired

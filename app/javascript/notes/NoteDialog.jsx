@@ -27,17 +27,17 @@ export default class NoteDialog extends React.Component {
     const actions = [
       <FlatButton
         label="Dismiss"
-        primary={true}
+        primary
         onClick={this.props.onDismiss}
       />,
       <FlatButton
         label="Save"
-        primary={true}
+        primary
         onClick={this.onSave}
       />,
       <FlatButton
         label="Delete"
-        primary={true}
+        primary
         onClick={this.onDelete}
       />
     ];
@@ -47,9 +47,9 @@ export default class NoteDialog extends React.Component {
           hintText="Add some content"
           floatingLabelText="MultiLine and FloatingLabel"
           defaultValue={this.props.body}
-          multiLine={true}
+          multiLine
           rows={7}
-          onChange={(e, value) => { this.setState({ body: value })}}
+          onChange={(e, value) => { this.setState({ body: value }); }}
         />
       </Dialog>
     );
@@ -65,5 +65,6 @@ NoteDialog.propTypes = {
 };
 
 NoteDialog.defaultProps = {
-  body: ''
+  body: '',
+  open: false
 };

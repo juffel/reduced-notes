@@ -1,62 +1,48 @@
 import client from './client';
 
-const addNoteAction = (body) => {
-  return {
-    type: 'ADD_NOTE',
-    id: Math.floor((Math.random() * 100000)),
-    body
-  };
-};
+const addNoteAction = body => ({
+  type: 'ADD_NOTE',
+  id: Math.floor((Math.random() * 100000)),
+  body
+});
 
-const updateNoteAction = (note) => {
-  return { type: 'UPDATE_NOTE', note };
-};
+const updateNoteAction = note => ({
+  type: 'UPDATE_NOTE', note
+});
 
-const deleteNoteAction = (note) => {
-  return {
-    type: 'DELETE_NOTE',
-    note
-  };
-};
+const deleteNoteAction = note => ({
+  type: 'DELETE_NOTE',
+  note
+});
 
-export const requestNotesAction = () => {
-  return {
-    type: 'REQUEST_NOTES'
-  };
-};
+export const requestNotesAction = () => ({
+  type: 'REQUEST_NOTES'
+});
 
-const receiveNotesAction = (notes) => {
-  return {
-    type: 'RECEIVE_NOTES',
-    notes
-  };
-};
+const receiveNotesAction = notes => ({
+  type: 'RECEIVE_NOTES',
+  notes
+});
 
-const receiveAddedNoteAction = (note, json) => {
-  return {
-    type: 'RECEIVE_ADDED_NOTE',
-    note,
-    backendId: json.id
-  };
-};
+const receiveAddedNoteAction = (note, json) => ({
+  type: 'RECEIVE_ADDED_NOTE',
+  note,
+  backendId: json.id
+});
 
-const receiveUpdatedNoteAction = (note, json) => {
-  return {
-    type: 'RECEIVE_UPDATED_NOTE',
-    note,
-    updatedNote: json.data
-  };
-};
+const receiveUpdatedNoteAction = (note, json) => ({
+  type: 'RECEIVE_UPDATED_NOTE',
+  note,
+  updatedNote: json.data
+});
 
-const receiveDeletedNoteAction = (note) => {
-  return {
-    type: 'RECEIVE_DELETED_NOTE',
-    note
-  };
-};
+const receiveDeletedNoteAction = note => ({
+  type: 'RECEIVE_DELETED_NOTE',
+  note
+});
 
 export function fetchNotesThunk() {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch(requestNotesAction());
 
     return client.getNotes().then((response) => {
@@ -66,7 +52,7 @@ export function fetchNotesThunk() {
 }
 
 export function addNoteThunk(body) {
-  return function(dispatch) {
+  return (dispatch) => {
     const note = addNoteAction(body);
     dispatch(note);
 
@@ -77,7 +63,7 @@ export function addNoteThunk(body) {
 }
 
 export function updateNoteThunk(note) {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch(updateNoteAction(note));
 
     return client.patchNote(note.id, { body: note.body }).then((response) => {
@@ -87,7 +73,7 @@ export function updateNoteThunk(note) {
 }
 
 export function deleteNoteThunk(note) {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch(deleteNoteAction(note));
 
     return client.deleteNote(note.id).then(() => {
