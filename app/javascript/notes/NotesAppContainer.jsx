@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import notesAppReducer from './reducers';
-import ConnectedNotesApp from './ConnectedNotesApp';
+import NotesApp from './NotesApp';
 import { requestNotesAction } from './actions';
 import rootSaga from './saga';
 
@@ -28,7 +28,7 @@ class NotesAppContainer extends React.Component {
     return (
       <Provider store={this.store} >
         <MuiThemeProvider>
-          <ConnectedNotesApp />
+          <NotesApp />
         </MuiThemeProvider>
       </Provider>
     );

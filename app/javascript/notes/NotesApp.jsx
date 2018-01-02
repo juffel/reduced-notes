@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+
+import {
+  addNoteAction,
+  updateNoteAction,
+  deleteNoteAction
+} from './actions';
 
 import NotesList from './NotesList';
 
@@ -17,7 +24,7 @@ const buttonStyle = {
   position: 'fixed'
 };
 
-export default function NotesApp(props) {
+function NotesApp(props) {
   return (
     <Paper>
       <AppBar title="Reduced Notes" />
@@ -47,3 +54,22 @@ NotesApp.propTypes = {
 NotesApp.contextTypes = {
   store: PropTypes.object
 };
+
+const mapStateToProps = state => ({ notes: state.notesReducer.notes });
+
+const mapDispatchToProps = dispatch => ({
+  onNoteAdd: (body = 'New Note') => {
+    dispatch(addNoteAction(body));
+  },
+  onNoteUpdate: (note) => {
+    dispatch(updateNoteAction(note));
+  },
+  onNoteDelete: (note) => {
+    dispatch(deleteNoteAction(note));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NotesApp);
