@@ -11,9 +11,9 @@ function reduceNote(
   switch (action.type) {
     case 'ADD_NOTE': {
       return Object.assign({}, state, {
-        id: action.id,
+        id: action.note.id,
         adding: true,
-        body: action.body
+        body: action.note.body
       });
     }
     case 'RECEIVE_ADDED_NOTE': {
